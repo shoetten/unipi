@@ -1,0 +1,5 @@
+---
+- hosts: unipi
+  roles:
+  - role: unifi-controller
+    tags: [ 'unifi-controller' ]

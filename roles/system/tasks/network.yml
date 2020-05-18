@@ -1,0 +1,22 @@
+---
+# write /etc/hosts
+- name: write /etc/hosts
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    mode: "0644"
+  become: yes
+
+# write /etc/mailname
+- name: write /etc/mailname
+  template:
+    src: mailname.j2
+    dest: /etc/mailname
+    mode: "0644"
+  become: yes
+
+# set hostname
+- name: set hostname
+  hostname:
+    name: "{{ register_hosts[0].hostname }}"
+  become: yes

@@ -1,0 +1,96 @@
+---
+# add admin groups
+- name: add admin groups
+  group:
+    name: "{{ item.name }}"
+  with_items: "{{ admin_users }}"
+  no_log: True
+  become: yes
+
+# add admin users
+- name: change root user
+  user:
+    name: root
+    shell: /bin/zsh
+  become: yes
+- name: change ubuntu user
+  user:
+    name: ubuntu
+    shell: /bin/zsh
+  become: yes
+- name: add admin users
+  user:
+    name: "{{ item.name }}"
+    group: "{{ item.name }}"
+    groups:
+      - sudo
+    shell: /bin/zsh
+    password: "{{ item.pass }}"
+  with_items: "{{ admin_users }}"
+  no_log: True
+  become: yes
+
+# omit sudo password (development only)
+- name: omit sudo password (development only)
+  lineinfile:
+    path: /etc/sudoers.d/development
+    create: yes
+    line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
+  with_items: "{{ admin_users }}"
+  no_log: True
+  when: stage == "development"
+  become: yes
+
+# add grml
+- name: add root grml zsh config
+  get_url:
+    url: https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+    dest: /root/.zshrc
+    owner: root
+    group: root
+  become: yes
+- name: add admin grml zsh config
+  get_url:
+    url: https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+    dest: /home/{{ item.name }}/.zshrc
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  with_items: "{{ admin_users }}"
+  no_log: True
+  become: yes
+
+# clone zsh autosuggestions
+- name: clone zsh autosuggestions repository
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: /usr/share/zsh-autosuggestions
+    version: "v{{ zsh_autosuggestions_version }}"
+  become: yes
+
+# configure zsh
+- name: configure root zsh
+  template:
+    src: zshrc.local.j2
+    dest: /root/.zshrc.local
+    owner: root
+    group: root
+  become: yes
+- name: configure admin zsh
+  template:
+    src: zshrc.local.j2
+    dest: "/home/{{ item.name }}/.zshrc.local"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  with_items: "{{ admin_users }}"
+  no_log: True
+  become: yes
+
+# add admin ssh keys
+- name: add admin ssh keys
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ lookup('file', 'files/keys/{{ item.name }}.pub') }}"
+  with_items: "{{ admin_users }}"
+  no_log: True
+  when: stage != "development"
+  become: yes

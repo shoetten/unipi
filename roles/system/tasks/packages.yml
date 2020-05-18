@@ -1,0 +1,65 @@
+---
+# add stretch backports repo
+- name: add stretch backports repo
+  lineinfile:
+    dest: /etc/apt/sources.list
+    create: yes
+    line: deb http://ftp.debian.org/debian stretch-backports main
+  when: ansible_distribution_release == 'stretch'
+  become: yes
+
+# remove stretch backports repo
+- name: remove stretch backports repo
+  lineinfile:
+    dest: /etc/apt/sources.list
+    line: deb http://ftp.debian.org/debian stretch-backports main
+    state: absent
+  when: ansible_distribution_release == 'buster'
+  become: yes
+
+# update the repositories
+- name: update repositories
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: update_repositories is defined and update_repositories == True
+  become: yes
+
+# install packages
+- name: install packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - curl
+      - htop
+      - git-core
+      - logrotate
+      - ncdu # ncurses disk usage analyzer
+      - net-tools
+      - python3-dev
+      - python3-pip
+      - python3-setuptools
+      - software-properties-common
+      - sudo
+      - tree
+      - tmux
+      - unzip
+      - vim-nox
+      - zsh
+      - zsh-syntax-highlighting
+  become: yes
+
+# remove packages
+- name: remove packages
+  apt:
+    name: "{{ packages }}"
+    state: absent
+    autoremove: yes
+    purge: yes
+  vars:
+    packages:
+    - exim4
+    - nfs-common
+  become: yes

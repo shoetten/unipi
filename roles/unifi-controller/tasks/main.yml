@@ -1,0 +1,38 @@
+---
+# Create unifi user
+- name: Ensure group "{{ unifi_user.name }}" exists
+  group:
+    name: "{{ unifi_user.name }}"
+    state: present
+    gid: "{{ unifi_user.gid }}"
+  become: yes
+
+- name: Create unifi user
+  user:
+    name: "{{ unifi_user.name }}"
+    group: "{{ unifi_user.name }}"
+    uid: "{{ unifi_user.uid }}"
+  become: yes
+
+- name: Install unifi-controller container
+  docker_container:
+    name: unifi-controller
+    image: linuxserver/unifi-controller
+    restart_policy: "unless-stopped"
+    privileged: yes
+    published_ports:
+      - 8080:8080 # required for Unifi to function
+      - 3478:3478/udp # Unifi communication port
+      - 10001:10001/udp # required for AP discovery
+      - 8081:8081 # Unifi communication port
+      - 8443:8443 # Unifi communication port, web ui
+      - 80:8443 # Unifi communication port, web ui
+      - 8843:8843 # Unifi communication port
+      - 8880:8880 # Unifi communication port
+      - 6789:6789 # For throughput test
+    volumes:
+      - "unifi-controller-data:/config"
+    env:
+      PUID: "{{ unifi_user.uid }}"
+      PGID: "{{ unifi_user.gid }}"
+  become: yes

@@ -1,0 +1,4 @@
+- hosts: unipi
+  roles:
+    - role: docker
+      become: true

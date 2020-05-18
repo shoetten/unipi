@@ -1,0 +1,9 @@
+127.0.0.1		localhost
+{% for host in register_hosts %}
+{{ host.ip_priv }}		{{ host.fqdn }}				{{ host.hostname }}
+{% if host.aliases is defined %}
+{% for alias in host.aliases %}
+{{ host.ip_priv }}			{{ alias }}
+{% endfor %}
+{% endif %}
+{% endfor %}

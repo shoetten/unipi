@@ -1,0 +1,2 @@
+[unipi]
+unipi.fritz.box ansible_host=192.168.178.60

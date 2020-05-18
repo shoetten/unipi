@@ -1,0 +1,16 @@
+---
+# system
+stage: production
+domain: unipi.fritz.box
+system_user: root
+admin_users:
+  - name: simon
+    pass: "{{ vault_admin_simon_password }}"
+  - name: benni
+    pass: "{{ vault_admin_benni_password }}"
+update_repositories: yes
+
+register_hosts:
+  - ip_priv: "{{ ansible_default_ipv4.address }}"
+    hostname: unipi
+    fqdn: "{{ domain }}"

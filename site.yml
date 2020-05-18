@@ -1,0 +1,11 @@
+- hosts: all
+  roles:
+    - role: common
+      tags: ['setup']
+    # Get security updates and reboots automaticly
+    - role: jnv.unattended-upgrades
+      unattended_automatic_reboot: true
+      become: yes
+
+- import_playbook: docker.yml
+- import_playbook: unifi_controller.yml

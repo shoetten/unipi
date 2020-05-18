@@ -1,0 +1,5 @@
+---
+unifi_user:
+  name: unifi
+  uid: 1600
+  gid: 1600
