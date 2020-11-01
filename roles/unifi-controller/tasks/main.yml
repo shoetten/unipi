@@ -20,6 +20,7 @@
     image: linuxserver/unifi-controller
     restart_policy: "unless-stopped"
     privileged: yes
+    pull: yes
     published_ports:
       - 8080:8080 # required for Unifi to function
       - 3478:3478/udp # Unifi communication port
