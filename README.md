@@ -1,5 +1,7 @@
 # unipi
 
+Ansible playbook for a [Unifi Controller](https://github.com/linuxserver/docker-unifi-controller) docker container. Meant to be run on a Raspberry Pi 4 with Ubuntu 20.04.
+
 ## Setup
 
 Install ansible and dependenies:
