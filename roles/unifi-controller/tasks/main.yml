@@ -25,12 +25,14 @@
       - 8080:8080 # required for Unifi to function
       - 3478:3478/udp # Unifi communication port
       - 10001:10001/udp # required for AP discovery
+      - 1900:1900/udp # optional
       - 8081:8081 # Unifi communication port
       - 8443:8443 # Unifi communication port, web ui
       - 80:8443 # Unifi communication port, web ui
       - 8843:8843 # Unifi communication port
       - 8880:8880 # Unifi communication port
       - 6789:6789 # For throughput test
+      - 5514:5514 # optional
     volumes:
       - "unifi-controller-data:/config"
     env:
