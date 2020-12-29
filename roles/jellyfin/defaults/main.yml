@@ -1,0 +1,9 @@
+---
+jellyfin_user:
+  name: jellyfin
+  uid: 1650
+  gid: 1650
+jellyfin_docker_volumes:
+  - "/path/to/library:/config"
+  - "/path/to/series:/data/series"
+  - "/path/to/movies:/data/movies"

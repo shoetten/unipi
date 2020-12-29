@@ -1,0 +1,45 @@
+---
+# Create jellyfin user
+- name: Ensure group "{{ jellyfin_user.name }}" exists
+  group:
+    name: "{{ jellyfin_user.name }}"
+    state: present
+    gid: "{{ jellyfin_user.gid }}"
+  become: yes
+
+- name: Create jellyfin user
+  user:
+    name: "{{ jellyfin_user.name }}"
+    group: "{{ jellyfin_user.name }}"
+    uid: "{{ jellyfin_user.uid }}"
+  become: yes
+
+- name: Add jellyfin user to video group
+  user:
+    name: "{{ jellyfin_user.name }}"
+    groups: video
+    append: yes
+  become: yes
+
+- name: Install jellyfin container
+  docker_container:
+    name: jellyfin
+    image: ghcr.io/linuxserver/jellyfin
+    restart_policy: "unless-stopped"
+    pull: yes
+    published_ports:
+      - 80:8096 # http web interface
+      - 8920:8920 # https web interface
+      - 7359:7359/udp # client discovery
+      - 1900:1900/udp # DNLA & client discovery
+    devices:
+      - /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMax video encoding
+      - /dev/video10:/dev/video10 # Raspberry Pi V4L2 video encoding
+      - /dev/video11:/dev/video11 # Raspberry Pi V4L2 video encoding
+      - /dev/video12:/dev/video12 # Raspberry Pi V4L2 video encoding
+    volumes: "{{ jellyfin_docker_volumes }}"
+    env:
+      PUID: "{{ jellyfin_user.uid }}"
+      PGID: "{{ jellyfin_user.gid }}"
+      TZ: "Europe/Berlin"
+  become: yes

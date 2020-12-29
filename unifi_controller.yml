@@ -1,5 +1,6 @@
 ---
-- hosts: unipi
+- hosts: eins
   roles:
   - role: unifi-controller
-    tags: [ 'unifi-controller' ]
+    tags:
+      - unifi-controller

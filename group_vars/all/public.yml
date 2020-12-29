@@ -1,7 +1,7 @@
 ---
 # system
 stage: production
-domain: unipi.fritz.box
+domain: eins.fritz.box
 system_user: root
 admin_users:
   - name: simon
@@ -12,5 +12,5 @@ update_repositories: yes
 
 register_hosts:
   - ip_priv: "{{ ansible_default_ipv4.address }}"
-    hostname: unipi
+    hostname: eins
     fqdn: "{{ domain }}"

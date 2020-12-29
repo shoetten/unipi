@@ -1,0 +1,10 @@
+---
+- hosts: eins
+  roles:
+  - role: jellyfin
+    tags:
+      - jellyfin
+    jellyfin_docker_volumes:
+      - "/media/RaidMaschine/data/videos/jellyfin:/config"
+      - "/media/RaidMaschine/data/videos/series:/data/series"
+      - "/media/RaidMaschine/data/videos/movies:/data/movies"
