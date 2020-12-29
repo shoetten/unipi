@@ -1,22 +1,4 @@
 ---
-# add stretch backports repo
-- name: add stretch backports repo
-  lineinfile:
-    dest: /etc/apt/sources.list
-    create: yes
-    line: deb http://ftp.debian.org/debian stretch-backports main
-  when: ansible_distribution_release == 'stretch'
-  become: yes
-
-# remove stretch backports repo
-- name: remove stretch backports repo
-  lineinfile:
-    dest: /etc/apt/sources.list
-    line: deb http://ftp.debian.org/debian stretch-backports main
-    state: absent
-  when: ansible_distribution_release == 'buster'
-  become: yes
-
 # update the repositories
 - name: update repositories
   apt:
