@@ -4,6 +4,11 @@
     name: "docker.io"
     state: present
 
+- name: install docker python bindings
+  apt:
+    name: "python3-docker"
+    state: present
+
 - name: Ensure Docker is started & enabled
   service:
     name: docker
