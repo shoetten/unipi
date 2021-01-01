@@ -12,6 +12,7 @@
     name: "{{ jellyfin_user.name }}"
     group: "{{ jellyfin_user.name }}"
     uid: "{{ jellyfin_user.uid }}"
+    shell: /sbin/nologin
   become: yes
 
 - name: Add jellyfin user to video group

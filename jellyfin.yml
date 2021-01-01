@@ -5,6 +5,6 @@
     tags:
       - jellyfin
     jellyfin_docker_volumes:
-      - "/media/RaidMaschine/data/videos/jellyfin:/config"
-      - "/media/RaidMaschine/data/videos/series:/data/series"
-      - "/media/RaidMaschine/data/videos/movies:/data/movies"
+      - "{{ jellyfin_root_path }}/jellyfin:/config"
+      - "{{ jellyfin_root_path }}/series:/data/series"
+      - "{{ jellyfin_root_path }}/movies:/data/movies"

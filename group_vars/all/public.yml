@@ -16,3 +16,4 @@ register_hosts:
     fqdn: "{{ domain }}"
 
 external_drive_path: /media/RaidMaschine
+jellyfin_root_path: "{{ external_drive_path }}/data/videos"

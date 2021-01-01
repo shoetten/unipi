@@ -1,0 +1,57 @@
+---
+- name: Add samba shares
+  hosts: eins
+  tags:
+    - samba
+  become: yes
+  vars:
+    samba_system_users:
+      - robs
+
+  pre_tasks:
+    - name: Ensure group merseflix exists
+      group:
+        name: merseflix
+        state: present
+    - name: Add admin users to merseflix group
+      user:
+        name: "{{ item.name }}"
+        groups:
+          - merseflix
+        append: yes
+      with_items: "{{ admin_users }}"
+      no_log: True
+    - name: Create samba system user groups
+      group:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ samba_system_users }}"
+    - name: Create samba system users
+      user:
+        name: "{{ item }}"
+        group: "{{ item }}"
+        groups:
+          - merseflix
+        shell: /sbin/nologin
+        password: '!'
+        create_home: no
+        append: yes
+      with_items: "{{ samba_system_users }}"
+
+  roles:
+    - role: bertvv.samba
+      samba_server_string: "merse fileserver %m"
+      samba_users: "{{ vault_samba_users }}"
+      samba_shares:
+        - name: merseflix-movies
+          comment: 'dump your movies here!'
+          group: merseflix
+          write_list: +merseflix
+          public: yes
+          path: "{{ jellyfin_root_path }}/movies"
+        - name: merseflix-tvshows
+          comment: 'dump your tv shows here!'
+          group: merseflix
+          write_list: +merseflix
+          public: yes
+          path: "{{ jellyfin_root_path }}/series"
