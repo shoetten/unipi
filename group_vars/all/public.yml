@@ -14,3 +14,5 @@ register_hosts:
   - ip_priv: "{{ ansible_default_ipv4.address }}"
     hostname: eins
     fqdn: "{{ domain }}"
+
+external_drive_path: /media/RaidMaschine
