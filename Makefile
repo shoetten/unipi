@@ -11,7 +11,7 @@ firstrun:
 provision:
 	./venv/bin/ansible-playbook \
     -i inventory --ask-vault-pass -K \
-     $(if $(ARGS),--tags=\'$(ARGS)\',) \
+     $(if $(tags),--tags='$(tags)',) \
      site.yml
 
 clean:
