@@ -42,6 +42,8 @@
     - role: bertvv.samba
       samba_server_string: "merse fileserver %m"
       samba_users: "{{ vault_samba_users }}"
+      # the version in ubuntu 20.04 is not affected, see https://github.com/bertvv/ansible-role-samba/pull/61 for details
+      samba_mitigate_cve_2017_7494: no
       samba_shares:
         - name: merseflix-movies
           comment: 'dump your movies here!'
