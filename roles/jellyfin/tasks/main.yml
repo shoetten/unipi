@@ -22,6 +22,15 @@
     append: yes
   become: yes
 
+# this is specific to ubuntu on a raspberry pi 4
+- name: Enable VA-API hardware acceleration
+  blockinfile:
+    path: /boot/firmware/usercfg.txt
+    block: |
+      gpu_mem=320
+      dtoverlay=vc4-kms-v3d-pi4
+  become: yes
+
 - name: Install jellyfin container
   docker_container:
     name: jellyfin
@@ -38,6 +47,7 @@
       - /dev/video10:/dev/video10 # Raspberry Pi V4L2 video encoding
       - /dev/video11:/dev/video11 # Raspberry Pi V4L2 video encoding
       - /dev/video12:/dev/video12 # Raspberry Pi V4L2 video encoding
+      - /dev/dri:/dev/dri # Raspberry Pi 4 VA-API hardware acceleration
     volumes: "{{ jellyfin_docker_volumes }}"
     env:
       PUID: "{{ jellyfin_user.uid }}"
