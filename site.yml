@@ -9,5 +9,4 @@
 
 - import_playbook: docker.yml
 - import_playbook: unifi_controller.yml
-- import_playbook: jellyfin.yml
-- import_playbook: samba.yml
+- import_playbook: merseflix.yml

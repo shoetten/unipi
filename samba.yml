@@ -1,7 +1,8 @@
 ---
 - name: Add samba shares
-  hosts: eins
+  hosts: merseflix
   tags:
+    - merseflix
     - samba
   become: yes
   vars:
@@ -9,18 +10,6 @@
       - robs
 
   pre_tasks:
-    - name: Ensure group merseflix exists
-      group:
-        name: merseflix
-        state: present
-    - name: Add admin users to merseflix group
-      user:
-        name: "{{ item.name }}"
-        groups:
-          - merseflix
-        append: yes
-      with_items: "{{ admin_users }}"
-      no_log: True
     - name: Create samba system user groups
       group:
         name: "{{ item }}"
@@ -31,7 +20,7 @@
         name: "{{ item }}"
         group: "{{ item }}"
         groups:
-          - merseflix
+          - "{{ merseflix_name }}"
         shell: /sbin/nologin
         password: '!'
         create_home: no
@@ -45,15 +34,15 @@
       # the version in ubuntu 20.04 is not affected, see https://github.com/bertvv/ansible-role-samba/pull/61 for details
       samba_mitigate_cve_2017_7494: no
       samba_shares:
-        - name: merseflix-movies
+        - name: "{{ merseflix_name }}-movies"
           comment: 'dump your movies here!'
-          group: merseflix
-          write_list: +merseflix
+          group: "{{ merseflix_name }}"
+          write_list: "+{{ merseflix_name }}"
           public: yes
-          path: "{{ jellyfin_root_path }}/movies"
-        - name: merseflix-tvshows
+          path: "{{ merseflix_root_path }}/movies"
+        - name: "{{ merseflix_name }}-tvshows"
           comment: 'dump your tv shows here!'
-          group: merseflix
-          write_list: +merseflix
+          group: "{{ merseflix_name }}"
+          write_list: "+{{ merseflix_name }}"
           public: yes
-          path: "{{ jellyfin_root_path }}/series"
+          path: "{{ merseflix_root_path }}/series"

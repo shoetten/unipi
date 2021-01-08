@@ -1,0 +1,23 @@
+---
+- name: Setup netflix, home edition
+  hosts: merseflix
+  tags:
+    - merseflix
+  become: yes
+
+  pre_tasks:
+    - name: Ensure media group exists
+      group:
+        name: "{{ merseflix_name }}"
+        state: present
+    - name: Add relevant users to media group
+      user:
+        name: "{{ item }}"
+        groups:
+          - "{{ merseflix_name }}"
+        append: yes
+      with_items: "{{ merseflix_users }}"
+      no_log: True
+
+- import_playbook: jellyfin.yml
+- import_playbook: samba.yml

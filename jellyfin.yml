@@ -1,10 +1,11 @@
 ---
-- hosts: eins
+- hosts: merseflix
+  tags:
+    - merseflix
+    - jellyfin
   roles:
-  - role: jellyfin
-    tags:
-      - jellyfin
-    jellyfin_docker_volumes:
-      - "{{ jellyfin_root_path }}/jellyfin:/config"
-      - "{{ jellyfin_root_path }}/series:/data/series"
-      - "{{ jellyfin_root_path }}/movies:/data/movies"
+    - role: jellyfin
+      jellyfin_docker_volumes:
+        - "{{ merseflix_root_path }}/jellyfin:/config"
+        - "{{ merseflix_root_path }}/series:/data/series"
+        - "{{ merseflix_root_path }}/movies:/data/movies"

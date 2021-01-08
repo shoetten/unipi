@@ -16,6 +16,7 @@
     packages:
       - curl
       - htop
+      - bmon # bandwidth monitoring
       - git-core
       - logrotate
       - ncdu # ncurses disk usage analyzer

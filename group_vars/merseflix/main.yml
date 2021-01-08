@@ -1,0 +1,4 @@
+---
+merseflix_name: merseflix
+merseflix_users: "{{ admin_users | map(attribute='name') | list }}"
+merseflix_root_path: "{{ external_drive_path }}/data/videos"
