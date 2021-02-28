@@ -1,0 +1,78 @@
+{
+    "debug": {{ auto_tatort_debug | ternary(1, 0, 0) }},
+    "debugFile": "/home/{{ auto_tatort_username }}/debug.log",
+    "feeds": [
+        {
+            "enabled": 1,
+            "id": "Tatort",
+            "quality": -1,
+            "subtitles": 1,
+            "targetFolder": "{{ auto_tatort_target_path }}",
+            "url": "https://classic.ardmediathek.de/tv/Tatort/Sendung?documentId=602916&bcastId=602916&rss=true",
+            "exclude": [
+                {
+                    "regexp": ".*H.rfassung.*"
+                },
+                {
+                    "regexp": ".*Livestream.*"
+                },
+                {
+                    "regexp": ".*Drehbericht zu.*"
+                },
+                {
+                    "regexp": ".*TV-Trailer.*"
+                },
+                {
+                    "regexp": ".*XL-Vorschau.*"
+                },
+                {
+                    "regexp": ".*Die Klassiker:.*"
+                },
+                {
+                    "regexp": ".*Making.[oO]f.*"
+                },
+                {
+                    "regexp": ".*Tatort - Extra:.*"
+                },
+                {
+                    "regexp": ".*- Outtakes.*"
+                },
+                {
+                    "regexp": ".*- Musikvideo.*"
+                },
+                {
+                    "regexp": ".*(19[0-9]{2}).*"
+                },
+                {
+                    "regexp": ".*(20[0-9]{2}).*"
+                }
+            ],
+            "titleFilters": [
+                {
+                    "replace": ","
+                },
+                {
+                    "replace": " (Video tgl. ab 22 Uhr)"
+                },
+                {
+                    "replace": " (Video tgl. ab 20 Uhr)"
+                },
+                {
+                    "replace": "Tatort - "
+                },
+                {
+                    "replace": " | tatort"
+                },
+                {
+                    "replace": "|tatort"
+                },
+                {
+                    "replace": "Tatort: "
+                }
+            ],
+            "titlePrependItemDate": 1
+        }
+    ],
+    "downloadedFeedItemsDatabase": "downloadedItems.json",
+    "version": 5
+}
