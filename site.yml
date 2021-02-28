@@ -4,7 +4,8 @@
       tags: ['setup']
     # Get security updates and reboots automaticly
     - role: jnv.unattended-upgrades
-      unattended_automatic_reboot: true
+      tags: ['setup']
+      unattended_automatic_reboot: false
       become: yes
 
 - import_playbook: docker.yml
