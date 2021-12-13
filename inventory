@@ -1,2 +1,9 @@
+[eins]
+eins.fritz.box ansible_host=192.168.178.119
+# unipi.fritz.box ansible_host=192.168.178.34
+
+[merseflix]
+eins.fritz.box ansible_host=192.168.178.119
+
 [unipi]
-unipi.intern.merse88b.de ansible_host=10.42.88.10
+unipi.fritz.box ansible_host=192.168.178.34
