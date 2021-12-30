@@ -9,3 +9,6 @@ sudo cryptsetup luksOpen /dev/sda1 RaidMaschine
 mkdir -p {{ external_drive_path }}
 sudo mount /dev/mapper/RaidMaschine {{ external_drive_path }}
 sudo chmod 755 {{ external_drive_path }}
+
+# restart jellyfin
+sudo docker restart jellyfin
