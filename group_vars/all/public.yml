@@ -1,7 +1,7 @@
 ---
 # system
 stage: production
-domain: eins.fritz.box
+domain: eins.intern.merse88b.de
 system_user: root
 admin_users:
   - name: simon
