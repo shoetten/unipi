@@ -1,0 +1,8 @@
+---
+- name: Setup syncthing
+  hosts: merseflix
+  tags:
+    - syncthing
+  become: True
+  roles:
+    - role: syncthing

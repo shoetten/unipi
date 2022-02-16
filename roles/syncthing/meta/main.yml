@@ -1,0 +1,13 @@
+---
+dependencies:
+  - role: systemli.apt_repositories
+    vars:
+      apt_repositories:
+        - name: apt.syncthing.net
+          url: https://apt.syncthing.net/
+          suites: syncthing
+          components: stable
+          key_path: syncthing-release-key.gpg
+          packages:
+            - syncthing
+    become: True
