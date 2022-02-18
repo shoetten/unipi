@@ -1,0 +1,10 @@
+[Unit]
+Description=Update health stamp every 6 hours
+
+[Timer]
+Persistent=true
+OnBootSec=1min
+OnUnitActiveSec=6h
+
+[Install]
+WantedBy=timers.target

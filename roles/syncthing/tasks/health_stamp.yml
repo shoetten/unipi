@@ -1,0 +1,10 @@
+---
+- name: add synchting health service & timer
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/{{ item }}"
+  with_items:
+    - system/syncthing-health.service
+    - system/syncthing-health.timer
+  notify:
+    - restart health timer

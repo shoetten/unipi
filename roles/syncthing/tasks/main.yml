@@ -26,3 +26,5 @@
     name: "syncthing@{{ syncthing_user }}"
     state: started
     enabled: True
+
+- import_tasks: health_stamp.yml

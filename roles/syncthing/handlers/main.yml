@@ -1,0 +1,6 @@
+---
+- name: restart health timer
+  service:
+    name: syncthing-health.timer
+    state: restarted
+    enabled: True

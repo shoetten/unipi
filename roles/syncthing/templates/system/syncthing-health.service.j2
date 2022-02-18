@@ -1,0 +1,8 @@
+[Unit]
+Description=Update health stamp
+
+[Service]
+Type=oneshot
+User={{ syncthing_user }}
+Group={{ syncthing_user }}
+ExecStart=/bin/sh -c 'date --utc --iso-8601=s > /home/{{ syncthing_user }}/health/merseflix.stamp'
