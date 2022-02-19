@@ -8,7 +8,7 @@ admin_users:
     pass: "{{ vault_admin_simon_password }}"
   - name: benni
     pass: "{{ vault_admin_benni_password }}"
-update_repositories: yes
+update_repositories: True
 
 register_hosts:
   - ip_priv: "{{ ansible_default_ipv4.address }}"

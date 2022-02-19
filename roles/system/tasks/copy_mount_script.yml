@@ -1,9 +1,8 @@
 ---
 - name: copy script to mount external storage
-  template:
+  ansible.builtin.template:
     src: mount-ext-storage.j2
     dest: /usr/local/sbin/mount-ext-storage
     owner: root
     group: root
     mode: '0755'
-  become: yes

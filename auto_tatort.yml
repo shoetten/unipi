@@ -6,4 +6,5 @@
   roles:
     - role: auto-tatort
       auto_tatort_target_path: "{{ merseflix_root_path }}/series/Tatort (1970)/Season 2021/"
-      auto_tatort_debug: yes
+      auto_tatort_debug: True
+      become: True

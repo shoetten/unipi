@@ -1,47 +1,42 @@
 ---
 # Create autotatort user
 - name: Ensure group "{{ auto_tatort_username }}" exists
-  group:
+  ansible.builtin.group:
     name: "{{ auto_tatort_username }}"
     state: present
-  become: yes
 
 - name: Create "{{ auto_tatort_username }}" user
-  user:
+  ansible.builtin.user:
     name: "{{ auto_tatort_username }}"
     group: "{{ auto_tatort_username }}"
     shell: /sbin/nologin
-  become: yes
 
 - name: Ensure auto-tatort target directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ auto_tatort_target_path }}"
     state: directory
     mode: '0755'
     owner: "{{ auto_tatort_username }}"
     group: "{{ merseflix_name }}"
-  become: yes
 
 - name: Ensure required python libs are installed
-  package:
+  ansible.builtin.package:
     name:
       - python3
       - python3-feedparser
       - python3-requests
     state: present
-  become: yes
 
 - name: Checkout auto-tatort from github
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/dicer/auto-tatort.git"
     dest: "/home/{{ auto_tatort_username }}/auto-tatort"
-  become: yes
+  become: True
   become_user: "{{ auto_tatort_username }}"
 
 - name: Add config
-  template:
+  ansible.builtin.template:
     src: config.json.j2
     dest: "/home/{{ auto_tatort_username }}/auto-tatort/config.json"
     owner: "{{ auto_tatort_username }}"
     group: "{{ auto_tatort_username }}"
-  become: yes

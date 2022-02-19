@@ -1,15 +1,14 @@
 ---
 # update the repositories
 - name: update repositories
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: True
     cache_valid_time: 3600
   when: update_repositories is defined and update_repositories == True
-  become: yes
 
 # install packages
 - name: install packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
   vars:
@@ -32,17 +31,15 @@
       - vim-nox
       - zsh
       - zsh-syntax-highlighting
-  become: yes
 
 # remove packages
 - name: remove packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ packages }}"
     state: absent
-    autoremove: yes
-    purge: yes
+    autoremove: True
+    purge: True
   vars:
     packages:
     - exim4
     - nfs-common
-  become: yes

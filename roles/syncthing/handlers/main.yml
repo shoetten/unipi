@@ -1,6 +1,7 @@
 ---
 - name: restart health timer
-  service:
+  ansible.builtin.systemd:
+    daemon_reload: True
     name: syncthing-health.timer
     state: restarted
     enabled: True

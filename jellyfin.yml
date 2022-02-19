@@ -9,3 +9,4 @@
         - "{{ merseflix_root_path }}/jellyfin:/config"
         - "{{ merseflix_root_path }}/series:/data/series"
         - "{{ merseflix_root_path }}/movies:/data/movies"
+      become: True

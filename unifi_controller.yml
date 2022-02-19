@@ -5,3 +5,4 @@
   - role: unifi-controller
     tags:
       - unifi-controller
+    become: True

@@ -1,26 +1,23 @@
 ---
 # Create jellyfin user
 - name: Ensure group "{{ jellyfin_user.name }}" exists
-  group:
+  ansible.builtin.group:
     name: "{{ jellyfin_user.name }}"
     state: present
     gid: "{{ jellyfin_user.gid }}"
-  become: yes
 
 - name: Create jellyfin user
-  user:
+  ansible.builtin.user:
     name: "{{ jellyfin_user.name }}"
     group: "{{ jellyfin_user.name }}"
     uid: "{{ jellyfin_user.uid }}"
     shell: /sbin/nologin
-  become: yes
 
 - name: Add jellyfin user to video group
-  user:
+  ansible.builtin.user:
     name: "{{ jellyfin_user.name }}"
     groups: video
-    append: yes
-  become: yes
+    append: True
 
 # this is specific to ubuntu on a raspberry pi 4
 - name: Enable VA-API hardware acceleration
@@ -29,14 +26,13 @@
     block: |
       gpu_mem=320
       dtoverlay=vc4-kms-v3d-pi4
-  become: yes
 
 - name: Install jellyfin container
-  docker_container:
+  community.docker.docker_container:
     name: jellyfin
     image: ghcr.io/linuxserver/jellyfin
     restart_policy: "unless-stopped"
-    pull: yes
+    pull: True
     published_ports:
       - 80:8096 # http web interface
       - 8920:8920 # https web interface
@@ -53,4 +49,3 @@
       PUID: "{{ jellyfin_user.uid }}"
       PGID: "{{ jellyfin_user.gid }}"
       TZ: "Europe/Berlin"
-  become: yes

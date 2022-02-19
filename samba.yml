@@ -4,27 +4,27 @@
   tags:
     - merseflix
     - samba
-  become: yes
+  become: True
   vars:
     samba_system_users:
       - robs
 
   pre_tasks:
     - name: Create samba system user groups
-      group:
+      ansible.builtin.group:
         name: "{{ item }}"
         state: present
       with_items: "{{ samba_system_users }}"
     - name: Create samba system users
-      user:
+      ansible.builtin.user:
         name: "{{ item }}"
         group: "{{ item }}"
         groups:
           - "{{ merseflix_name }}"
         shell: /sbin/nologin
         password: '!'
-        create_home: no
-        append: yes
+        create_home: False
+        append: True
       with_items: "{{ samba_system_users }}"
 
   roles:

@@ -1,7 +1,10 @@
 - hosts: all
   roles:
-    - role: common
+    - role: system
       tags: ['setup']
+      become: True
+    - role: sshd
+      tags: ['setup', 'ssh']
     # Get security updates and reboots automaticly
     - role: jnv.unattended-upgrades
       tags: ['setup']

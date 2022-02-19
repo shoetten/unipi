@@ -1,26 +1,24 @@
 ---
 # Create unifi user
 - name: Ensure group "{{ unifi_user.name }}" exists
-  group:
+  ansible.builtin.group:
     name: "{{ unifi_user.name }}"
     state: present
     gid: "{{ unifi_user.gid }}"
-  become: yes
 
 - name: Create unifi user
-  user:
+  ansible.builtin.user:
     name: "{{ unifi_user.name }}"
     group: "{{ unifi_user.name }}"
     uid: "{{ unifi_user.uid }}"
-  become: yes
 
 - name: Install unifi-controller container
-  docker_container:
+  community.docker.docker_container:
     name: unifi-controller
     image: linuxserver/unifi-controller
     restart_policy: "unless-stopped"
-    privileged: yes
-    pull: yes
+    privileged: True
+    pull: True
     published_ports:
       - 8080:8080 # required for Unifi to function
       - 3478:3478/udp # Unifi communication port
@@ -36,4 +34,3 @@
     env:
       PUID: "{{ unifi_user.uid }}"
       PGID: "{{ unifi_user.gid }}"
-  become: yes

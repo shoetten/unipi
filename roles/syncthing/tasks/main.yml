@@ -1,28 +1,28 @@
 ---
 - name: install syncthing
-  package:
+  ansible.builtin.package:
     name: syncthing
     state: present
 
 - name: Ensure group "{{ syncthing_user }}" exists
-  group:
+  ansible.builtin.group:
     name: "{{ syncthing_user }}"
     state: present
 
 - name: Create syncthing user
-  user:
+  ansible.builtin.user:
     name: "{{ syncthing_user }}"
     group: "{{ syncthing_user }}"
     shell: /sbin/nologin
 
 - name: Add syncthing user to merseflix group
-  user:
+  ansible.builtin.user:
     name: "{{ syncthing_user }}"
     groups: merseflix
     append: True
 
 - name: Ensure syncthing is started & enabled
-  service:
+  ansible.builtin.service:
     name: "syncthing@{{ syncthing_user }}"
     state: started
     enabled: True

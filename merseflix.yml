@@ -3,19 +3,19 @@
   hosts: merseflix
   tags:
     - merseflix
-  become: yes
+  become: True
 
   pre_tasks:
     - name: Ensure media group exists
-      group:
+      ansible.builtin.group:
         name: "{{ merseflix_name }}"
         state: present
     - name: Add relevant users to media group
-      user:
+      ansible.builtin.user:
         name: "{{ item }}"
         groups:
           - "{{ merseflix_name }}"
-        append: yes
+        append: True
       with_items: "{{ merseflix_users }}"
       no_log: True
 
