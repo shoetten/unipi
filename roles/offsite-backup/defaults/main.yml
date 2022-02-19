@@ -1,0 +1,6 @@
+---
+offsite_backup_rsync_folder: /path/to/local/backup
+offsite_backup_rsync_remote_host: pi.example.org
+offsite_backup_rsync_remote_user: user
+offsite_backup_rsync_remote_pass: "{{ vault_offsite_backup_rsync_remote_pass }}"
+offsite_backup_rsync_remote_folder: /backups

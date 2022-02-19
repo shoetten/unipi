@@ -1,0 +1,11 @@
+[Unit]
+Description=Offsite backup of restic backups
+
+[Service]
+Type=oneshot
+ExecStart=rsync -azruh \
+                --delete --stats \
+                --password-file=/etc/conf.d/rsync_pass \
+                {{ offsite_backup_rsync_folder }} \
+                rsync://{{ offsite_backup_rsync_remote_user }}@{{ offsite_backup_rsync_remote_host }}:{{ offsite_backup_rsync_remote_folder }} \
+                && touch /var/lib/offsite-backup/offsite-backup.stamp

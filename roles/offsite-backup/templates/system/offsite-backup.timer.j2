@@ -1,0 +1,9 @@
+[Unit]
+Description=Run offsite backup every night at 03:05
+
+[Timer]
+Persistent=true
+OnCalendar=*-*-* 03:05:00
+
+[Install]
+WantedBy=timers.target

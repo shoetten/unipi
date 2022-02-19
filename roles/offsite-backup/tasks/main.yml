@@ -1,0 +1,33 @@
+---
+- name: install rsync
+  ansible.builtin.package:
+    name: rsync
+    state: present
+
+- name: Ensure /var/lib/offsite-backup directory exists
+  ansible.builtin.file:
+    path: /var/lib/offsite-backup
+    state: directory
+    mode: 0750
+
+- name: Ensure /etc/conf.d directory exists
+  ansible.builtin.file:
+    path: /etc/conf.d
+    state: directory
+    mode: 0750
+
+- name: write rsync password file
+  ansible.builtin.template:
+    src: "conf.d/rsync_pass.j2"
+    dest: "/etc/conf.d/rsync_pass"
+    mode: 0600
+
+- name: add offsite backup service & timer
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/{{ item }}"
+  with_items:
+    - system/offsite-backup.service
+    - system/offsite-backup.timer
+  notify:
+    - restart offsite backup timer
