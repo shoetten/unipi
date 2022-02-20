@@ -1,3 +1,7 @@
+roles:
 - name: jnv.unattended-upgrades
 - name: bertvv.samba
 - name: systemli.apt_repositories
+
+collections:
+- name: sivel.toiletwater

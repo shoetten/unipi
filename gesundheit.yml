@@ -1,0 +1,64 @@
+---
+- name: Setup gesundheit
+  hosts: all
+  tags:
+    - setup
+    - gesundheit
+    - monitoring
+  become: True
+  roles:
+    - role: gesundheit
+      gesundheit_modules:
+        - filename: gotify
+          config:
+            Handler:
+              Module: "gotify"
+              Config:
+                Url: "{{ vault_gesundheit_gotify_url }}"
+                Token: "{{ vault_gesundheit_gotify_token }}"
+              Filter:
+                - Module: "result-change"
+        - filename: check-offsite-backup
+          config:
+            Check:
+              Module: "mtime"
+              Description: "Check nightly offsite backup"
+              Interval: "1h"
+              Config:
+                Path: "/var/lib/offsite-backup/offsite-backup.stamp"
+                MaxAge: "25h"
+        - filename: check-syncthing-health
+          config:
+            Check:
+              Module: "mtime"
+              Description: "Check syncthing sync with angerpi"
+              Interval: "1h"
+              Config:
+                Path: "/home/syncthing/health/angerpi.stamp"
+                MaxAge: "7h"
+        - filename: check-disk-space-root
+          config:
+            Check:
+              Module: "disk-space"
+              Description: "Check free space on root partition"
+              Interval: "30m"
+              Config:
+                MountPoint: "/"
+                MinAvailable: "1G"
+        - filename: check-disk-space-raid-maschine
+          config:
+            Check:
+              Module: "disk-space"
+              Description: "Check free space on external raid partition"
+              Interval: "30m"
+              Config:
+                MountPoint: "{{ external_drive_path }}"
+                MinAvailable: "20G"
+        - filename: check-memory
+          config:
+            Check:
+              Module: "memory"
+              Description: "Check available memory"
+              Interval: "5m"
+              Config:
+                MinAvailable: "500M"

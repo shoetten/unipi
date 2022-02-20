@@ -4,10 +4,12 @@ dependencies:
     vars:
       apt_repositories:
         - name: ushis.github.io
-          url: "https://ushis.github.io/gesundheit/deb/{{ _platform_map[ansible_architecture] | default(ansible_architecture) }}"
+          url: "https://ushis.github.io/gesundheit/deb"
           suites: /
           components: ''
           key_path: gesundheit-release-key.gpg
           packages:
             - gesundheit
     become: True
+collections:
+  - sivel.toiletwater

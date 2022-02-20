@@ -9,3 +9,14 @@
   ansible.builtin.service:
     name: gesundheit
     enabled: True
+
+- name: configure gesundheit handlers
+  ansible.builtin.template:
+    src: "module.toml.j2"
+    dest: "/etc/gesundheit/modules.d/{{ item.filename }}.toml"
+    owner: root
+    group: gesundheit
+    mode: "0640"
+  with_items: "{{ gesundheit_modules }}"
+  no_log: True
+  notify: restart gesundheit service
