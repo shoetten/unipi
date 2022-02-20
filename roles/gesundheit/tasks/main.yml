@@ -1,0 +1,11 @@
+---
+- name: install gesundheit
+  ansible.builtin.package:
+    name: gesundheit
+    state: present
+  notify: restart gesundheit service
+
+- name: enable gesundheit service
+  ansible.builtin.service:
+    name: gesundheit
+    enabled: True

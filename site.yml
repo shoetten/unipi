@@ -5,6 +5,9 @@
       become: True
     - role: sshd
       tags: ['setup', 'ssh']
+    - role: gesundheit
+      tags: ['setup', 'gesundheit', 'monitoring']
+      become: True
     # Get security updates and reboots automaticly
     - role: jnv.unattended-upgrades
       tags: ['setup']
