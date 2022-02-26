@@ -6,8 +6,6 @@ Timestamps = {{ gesundheit_timestamps | ternary('true', 'false') }}
 # Enable if you need a pretty web interface
 [Http]
 Enabled = {{ gesundheit_http_enabled | ternary('true', 'false') }}
-
-[Http.Config]
 Listen = "{{ gesundheit_http_listen_ip }}:{{ gesundheit_http_listen_port }}"
 
 # Load modules config from modules.d
