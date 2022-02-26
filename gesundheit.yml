@@ -8,6 +8,9 @@
   become: True
   roles:
     - role: gesundheit
+      gesundheit_http_enabled: True
+      gesundheit_http_listen_ip: 0.0.0.0
+      gesundheit_http_listen_port: 9876
       gesundheit_modules:
         - filename: gotify
           config:
