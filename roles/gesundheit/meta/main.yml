@@ -3,8 +3,8 @@ dependencies:
   - role: systemli.apt_repositories
     vars:
       apt_repositories:
-        - name: ushis.github.io
-          url: "https://ushis.github.io/gesundheit/deb"
+        - name: repo.honkgong.info-gesundheit
+          url: "http://repo.honkgong.info/gesundheit/deb"
           suites: /
           components: ''
           key_path: gesundheit-release-key.gpg
