@@ -1,14 +1,21 @@
 #!/bin/bash
-set -ex
+set -e
 
 ###################################################################
 # run this after system startup to mount data on external storage #
 ###################################################################
 
-sudo cryptsetup luksOpen /dev/sda1 RaidMaschine
-mkdir -p {{ external_drive_path }}
-sudo mount /dev/mapper/RaidMaschine {{ external_drive_path }}
-sudo chmod 755 {{ external_drive_path }}
+read -s -p "Enter LUKS password: " lukspassword
 
+echo "\nMount and decrypt external drives.."
+{% for name, path in external_drive_paths.items() %}
+echo $lukspassword | sudo cryptsetup luksOpen {{ path.external }} {{ name }} -
+mkdir -p {{ path.internal }}
+sudo mount /dev/mapper/{{ name }} {{ path.internal }}
+sudo chmod 755 {{ path.internal }}
+echo "\nMounted {{ name }}!"
+{% endfor %}
+
+echo "\nRestart relevant docker containers.."
 # restart jellyfin
 sudo docker restart jellyfin

@@ -62,10 +62,19 @@
           config:
             Check:
               Module: "disk-space"
-              Description: "Check free space on external raid partition"
+              Description: "Check free space on external RaidMaschine partition"
               Interval: "30m"
               Config:
-                MountPoint: "{{ external_drive_path }}"
+                MountPoint: "{{ external_drive_paths.RaidMaschine.internal }}"
+                MinAvailable: "20G"
+        - filename: check-disk-space-fast-maschine
+          config:
+            Check:
+              Module: "disk-space"
+              Description: "Check free space on external FastMaschine partition"
+              Interval: "30m"
+              Config:
+                MountPoint: "{{ external_drive_paths.FastMaschine.internal }}"
                 MinAvailable: "20G"
         - filename: check-memory
           config:

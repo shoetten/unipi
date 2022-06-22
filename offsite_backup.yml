@@ -7,6 +7,6 @@
   become: True
   roles:
     - role: offsite-backup
-      offsite_backup_rsync_folder: "{{ external_drive_path }}/backups/"
+      offsite_backup_rsync_folder: "{{ external_drive_paths.FastMaschine.internal }}/backups/"
       offsite_backup_rsync_remote_host: angerpi.42.honkgong.info
       offsite_backup_rsync_remote_user: simon

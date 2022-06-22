@@ -15,4 +15,10 @@ register_hosts:
     hostname: eins
     fqdn: "{{ domain }}"
 
-external_drive_path: /media/RaidMaschine
+external_drive_paths:
+  FastMaschine:
+    external: "/dev/sda"
+    internal: "/media/FastMaschine"
+  RaidMaschine:
+    external: "/dev/sdb1"
+    internal: "/media/RaidMaschine"
