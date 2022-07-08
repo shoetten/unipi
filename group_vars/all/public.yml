@@ -17,8 +17,8 @@ register_hosts:
 
 external_drive_paths:
   FastMaschine:
-    external: "/dev/sda"
+    external: "/dev/sdb"
     internal: "/media/FastMaschine"
   RaidMaschine:
-    external: "/dev/sdb1"
+    external: "/dev/sda1"
     internal: "/media/RaidMaschine"
