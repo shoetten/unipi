@@ -34,6 +34,17 @@
       # the version in ubuntu 20.04 is not affected, see https://github.com/bertvv/ansible-role-samba/pull/61 for details
       samba_mitigate_cve_2017_7494: no
       samba_shares:
+        - name: "simon-data"
+          comment: "simons data on raid"
+          public: no
+          group: simon
+          valid_users: +simon
+          write_list: +simon
+          create_mode: "0660"
+          force_create_mode: "0660"
+          directory_mode: "0770"
+          force_directory_mode: "0770"
+          path: "{{ external_drive_paths.RaidMaschine.internal }}/data"
         - name: "{{ merseflix_name }}-movies"
           comment: 'dump your movies here!'
           group: "{{ merseflix_name }}"
