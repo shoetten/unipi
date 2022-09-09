@@ -1,0 +1,10 @@
+---
+- name: Setup matrix-webhook
+  hosts: merseflix
+  tags:
+    - matrix-webhook
+    - merseflix
+  become: True
+  roles:
+    - role: matrix-webhook
+      matrix_webook_matrix_url: "https://chat.livingutopia.org"

@@ -1,0 +1,6 @@
+---
+matrix_webook_port: 4785
+matrix_webook_matrix_url: "https://matrix.org"
+matrix_webook_matrix_id: "{{ vault_matrix_webook_matrix_id }}"
+matrix_webook_matrix_pw: "{{ vault_matrix_webook_matrix_pw }}"
+matrix_webook_api_key: "{{ vault_matrix_webook_api_key }}"

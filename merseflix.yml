@@ -22,3 +22,4 @@
 - import_playbook: jellyfin.yml
 - import_playbook: samba.yml
 - import_playbook: syncthing.yml
+- import_playbook: matrix_webhook.yml

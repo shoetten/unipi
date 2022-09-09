@@ -1,0 +1,14 @@
+---
+- name: Install Matrix Webhook container
+  community.docker.docker_container:
+    name: matrix-webhook
+    image: nim65s/matrix-webhook
+    restart_policy: "unless-stopped"
+    pull: True
+    published_ports:
+      - "{{ matrix_webook_port }}:4785"
+    env:
+      MATRIX_URL: "{{ matrix_webook_matrix_url }}"
+      MATRIX_ID: "{{ matrix_webook_matrix_id }}"
+      MATRIX_PW: "{{ matrix_webook_matrix_pw }}"
+      API_KEY: "{{ matrix_webook_api_key }}"
