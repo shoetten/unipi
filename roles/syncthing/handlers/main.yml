@@ -5,3 +5,10 @@
     name: syncthing-health.timer
     state: restarted
     enabled: True
+
+- name: restart syncthing
+  ansible.builtin.systemd:
+    daemon_reload: True
+    name: syncthing@syncthing
+    state: restarted
+    enabled: True
