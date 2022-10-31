@@ -8,15 +8,15 @@ set -e
 
 read -s -p "Enter LUKS password: " lukspassword
 
-echo "\nMount and decrypt external drives.."
+printf "\nMount and decrypt external drives..\n"
 {% for name, path in external_drive_paths.items() %}
 echo $lukspassword | sudo cryptsetup luksOpen {{ path.external }} {{ name }} -
 mkdir -p {{ path.internal }}
 sudo mount /dev/mapper/{{ name }} {{ path.internal }}
 sudo chmod 755 {{ path.internal }}
-echo "\nMounted {{ name }}!"
+printf "Mounted {{ name }}!\n"
 {% endfor %}
 
-echo "\nRestart relevant docker containers.."
+printf "Restart relevant docker containers..\n"
 # restart jellyfin
 sudo docker restart jellyfin
