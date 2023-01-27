@@ -4,7 +4,17 @@
   tags:
     - matrix-webhook
     - merseflix
-  become: True
+  become: true
   roles:
     - role: matrix-webhook
-      matrix_webook_matrix_url: "https://chat.livingutopia.org"
+      matrix_webhook_matrix_url: "https://chat.livingutopia.org"
+      matrix_webhook_matrix_id: "{{ vault_matrix_webhook_merseflix_id }}"
+      matrix_webhook_matrix_pw: "{{ vault_matrix_webhook_merseflix_pw }}"
+      matrix_webhook_api_key: "{{ vault_matrix_webhook_merseflix_api_key }}"
+      matrix_webhook_port: 4785
+    - role: matrix-webhook
+      matrix_webhook_matrix_url: "https://chat.livingutopia.org"
+      matrix_webhook_matrix_id: "{{ vault_matrix_webhook_mersebot_id }}"
+      matrix_webhook_matrix_pw: "{{ vault_matrix_webhook_mersebot_pw }}"
+      matrix_webhook_api_key: "{{ vault_matrix_webhook_mersebot_api_key }}"
+      matrix_webhook_port: 4786
